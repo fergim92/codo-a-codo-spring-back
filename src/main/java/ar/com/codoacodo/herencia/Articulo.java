@@ -50,6 +50,11 @@ public class Articulo {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
+
+	@Override
+	public String toString() {
+		return "Articulo [img=" + img + ", titulo=" + titulo + ", autor=" + autor + ", precio=" + precio + "]";
+	}
 	
-}
+
 }
