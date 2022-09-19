@@ -1,14 +1,44 @@
 package ar.com.codoacodo.herencia;
 
+import ar.com.codoacodo.clase7.IFiltro;
+import ar.com.codoacodo.clase7.MasVendidos;
+import ar.com.codoacodo.clase7.MayorPrecio;
+
 public class Buscador {
 
 	private String claveBusqueda;
 	private Articulo[] resultados;//esto es nulo porque es un array
+	private IFiltro filtros;
 
 	//default: visibles en mismo paquete y por ser usadas por cualquier clase 
 	public Buscador(String claveDelUsuario){
 		this.setClaveBusqueda(claveDelUsuario);
 		this.setResultados(new Articulo[]{});
+		
+		this.setFiltros(new MasVendidos());
+	}
+	
+	private void setFiltros(IFiltro filtro) {	
+		this.filtros = filtro;
+	}
+
+	public void cambiarFiltro(IFiltro nuevoFiltro) {
+		setFiltros(nuevoFiltro);
+	}
+	
+	public void ordenar(String claveDeOrdenamiento) {
+		switch (claveDeOrdenamiento) {
+			case "MASVENDIDOS":
+				this.setFiltros(new MasVendidos(this.getResultados()));
+				break;
+			case "MAYORPRECIO":
+				this.setFiltros(new MayorPrecio());
+				break;
+			default:
+				this.setFiltros(new MasVendidos());
+				break;
+		}
+		this.filtros.ordenar();
 	}
 	
 	/*firma del metodo: */
